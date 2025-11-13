@@ -1,42 +1,34 @@
 {
   "name": "Horde-LLM-CPU-Worker",
-
   "workspaceFolder": "/workspace",
-
   "dockerFile": "Dockerfile",
   "context": "..",
-
   "hostRequirements": {
     "cpus": 8
   },
-
   "waitFor": "postCreateCommand",
   "overrideCommand": true,
   "remoteUser": "root",
-
   "postCreateCommand": "chmod +x /usr/local/bin/start-all.sh",
-
   "postStartCommand": "/usr/local/bin/start-all.sh",
-
   "containerEnv": {
     "HORDE_URL": "https://stablehorde.net",
     "HORDE_WORKER_NAME": "cpu-llm-space-worker",
     "HORDE_MAX_THREADS": "8"
   },
-
   "forwardPorts": [
     2121
   ],
-
   "portsAttributes": {
     "2121": {
       "label": "FTP"
     }
   },
   "features": {
-    "ghcr.io/devcontainers/features/python:1": {"installJupyterlab":true}
-}
-
+    "ghcr.io/devcontainers/features/python:1": {
+      "installJupyterlab": true
+    }
+  },
   "customizations": {
     "codespaces": {
       "openFiles": []
