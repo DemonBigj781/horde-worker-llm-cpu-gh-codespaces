@@ -6,7 +6,7 @@
   "context": "..",
 
   "hostRequirements": {
-    "cpus": 2
+    "cpus": 8
   },
 
   "waitFor": "postCreateCommand",
@@ -25,7 +25,7 @@
   "containerEnv": {
     "HORDE_URL": "https://stablehorde.net",
     "HORDE_WORKER_NAME": "cpu-llm-space-worker",
-    "HORDE_MAX_THREADS": "2"
+    "HORDE_MAX_THREADS": "8"
   },
 
   "customizations": {
