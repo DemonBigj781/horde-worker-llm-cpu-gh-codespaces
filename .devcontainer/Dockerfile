@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     ffmpeg \
     libsm6 \
     libxext6 \
+    nano \
     && rm -rf /var/lib/apt/lists/*
 
 # Install micromamba (used by Horde worker)
@@ -43,7 +44,7 @@ RUN cd /app && \
 ENV HORDE_API_KEY="" \
     HORDE_URL="https://stablehorde.net" \
     HORDE_WORKER_NAME="cpu-llm-space-worker" \
-    HORDE_MAX_THREADS="2"
+    HORDE_MAX_THREADS="8"
 
 # Start the worker automatically
 ENTRYPOINT ["/app/horde-scribe-bridge.sh"]
