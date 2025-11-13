@@ -1,8 +1,7 @@
 {
   "name": "Horde LLM CPU Worker (Codespaces)",
 
-  // Use the Dockerfile in the repo root
-  "dockerFile": "Dockerfile",
+  "dockerFile": "../Dockerfile",
   "context": "..",
 
   "hostRequirements": {
@@ -10,12 +9,11 @@
   },
 
   "waitFor": "postCreateCommand",
-  "updateContentCommand": "",
 
   "overrideCommand": true,
   "remoteUser": "root",
 
-  "postCreateCommand": "cd /app && ./update-runtime.sh --scribe"
+  "postCreateCommand": "cd /app && chmod +x update-runtime.sh && ./update-runtime.sh --scribe",
 
   "postStartCommand": "cd /app && nohup ./horde-scribe-bridge.sh > /var/log/horde-scribe.log 2>&1 &",
 
