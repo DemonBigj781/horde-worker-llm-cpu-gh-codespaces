@@ -1,11 +1,10 @@
-# CPU-only AI Horde LLM worker + JupyterLab + SSH + FTP
+# CPU-only AI Horde LLM worker + SSH + FTP (Jupyter used via built-in Codespaces integration)
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_ROOT_USER_ACTION=ignore
-
 
 WORKDIR /app
 
@@ -33,13 +32,13 @@ RUN cd /app && \
     chmod +x ./update-runtime.sh && \
     ./update-runtime.sh --scribe
 
-# JupyterLab + simple FTP server
+# Install Jupyter & FTP server libs for built-in Jupyter + FTP
 RUN pip3 install --no-cache-dir jupyterlab pyftpdlib
 
 # SSH server basic setup
 RUN mkdir -p /var/run/sshd
 
-# Copy startup script (relative to build context root)
+# Copy startup script
 COPY .devcontainer/start-all.sh /usr/local/bin/start-all.sh
 RUN chmod +x /usr/local/bin/start-all.sh
 
@@ -48,5 +47,5 @@ ENV HORDE_URL="https://stablehorde.net" \
     HORDE_WORKER_NAME="cpu-llm-space-worker" \
     HORDE_MAX_THREADS="8"
 
-# Devcontainer overrides CMD, so just default to a shell
+# Devcontainer overrides CMD, so default to a shell
 CMD ["/bin/bash"]
