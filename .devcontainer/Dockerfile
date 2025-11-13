@@ -20,10 +20,6 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     nano \
     && rm -rf /var/lib/apt/lists/*
-    
-RUN cd /app && \
-    chmod +x ./update-runtime.sh && \
-    ./update-runtime.sh --scribe
 
 # Install micromamba (used by Horde worker)
 RUN curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest \
@@ -49,6 +45,10 @@ ENV HORDE_API_KEY="" \
     HORDE_URL="https://stablehorde.net" \
     HORDE_WORKER_NAME="cpu-llm-space-worker" \
     HORDE_MAX_THREADS="8"
+
+RUN cd /app && \
+    chmod +x ./update-runtime.sh && \
+    ./update-runtime.sh --scribe    
 
 # Start the worker automatically
 ENTRYPOINT ["/app/horde-scribe-bridge.sh"]
