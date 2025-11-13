@@ -7,7 +7,9 @@ mkdir -p /var/run/sshd
 
 # Start Horde LLM worker
 cd /app
-nohup ./horde-scribe-bridge.sh > /var/log/horde-scribe.log 2>&1 &
+nohup /app/bin/micromamba run -r conda -n linux python /app/bridge_scribe.py \
+  > /var/log/horde-scribe.log 2>&1 &
+
 
 # Start simple FTP server on port 2121
 nohup python3 -m pyftpdlib -p 2121 > /var/log/ftp.log 2>&1 &
